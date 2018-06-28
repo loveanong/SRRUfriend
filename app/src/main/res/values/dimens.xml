@@ -2,4 +2,5 @@
 <resources>
     <dimen name="margin">40dp</dimen>
     <dimen name="logo">120dp</dimen>
+    <dimen name="h2">18sp</dimen>
 </resources>
