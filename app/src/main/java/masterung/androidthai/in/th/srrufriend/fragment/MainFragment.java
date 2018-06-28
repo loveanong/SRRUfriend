@@ -5,8 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import masterung.androidthai.in.th.srrufriend.R;
 
@@ -17,6 +19,21 @@ public class MainFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
 
 //        register Controller
+        TextView textView = getView().findViewById(R.id.txtNewRegister);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                replace Fragment
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.contentMainFragment, new RegisterFragment())
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+        });
 //
     }//main method
 
