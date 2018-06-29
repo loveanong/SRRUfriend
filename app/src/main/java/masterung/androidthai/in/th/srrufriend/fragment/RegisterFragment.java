@@ -11,9 +11,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.BitSet;
 
@@ -24,6 +29,7 @@ public class RegisterFragment extends Fragment {
 
     private ImageView imageView;
     private Uri uri;
+    private  boolean aBoolean = true;
 
 
     @Override
@@ -48,6 +54,50 @@ public class RegisterFragment extends Fragment {
 
     }// main method
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.itemupload) {
+            uploadValueToServer();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    private void uploadValueToServer() {
+        EditText nameEditText = getView().findViewById(R.id.edtname);
+        EditText userEditText = getView().findViewById(R.id.edtuser);
+        EditText passwordEditText = getView().findViewById(R.id.edtpassword);
+
+        String nameString = nameEditText.getText().toString().trim();
+        String userString = userEditText.getText().toString().trim();
+        String passwordString = passwordEditText.getText().toString().trim();
+
+
+        if (aBoolean) {
+            alertMessage("Non Choone Avata");
+        } else if (nameString.isEmpty() || userString.isEmpty() || passwordString.isEmpty()) {
+           alertMessage("Please Fill all Blank");
+        } else  {
+        }
+
+    } // upload
+
+    private void alertMessage(String strMessage) {
+        Toast.makeText(getActivity(), strMessage, Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_register,menu);
+    }
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -55,6 +105,7 @@ public class RegisterFragment extends Fragment {
         if (resultCode == getActivity().RESULT_OK) {
 
             uri = data.getData();
+            aBoolean = false;
 
             try {
 
@@ -90,6 +141,9 @@ public class RegisterFragment extends Fragment {
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
+
+
+        setHasOptionsMenu(true);
     }
 
 
